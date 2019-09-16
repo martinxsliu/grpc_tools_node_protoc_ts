@@ -12,6 +12,11 @@ export namespace ExtensionFormatter {
                            indentLevel: number): string {
 
         let extensionName = Utility.snakeToCamel(extension.getName());
+        if (extensionName === 'enum') {
+            // 'enum' is a reserved keyword, and the JS plugin uses 'pb_enum' instead.
+            extensionName = 'pb_enum';
+        }
+
         let fieldType = FieldTypesFormatter.getFieldType(
             extension.getType(), extension.getTypeName().slice(1), fileName, exportMap
         );
